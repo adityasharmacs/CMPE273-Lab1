@@ -1,0 +1,150 @@
+Q.1.The Fibonacci sequence is defined as: fib(0) = 0, fib(1) = 1, fib(n) = fib(n-1) + fib(n-2). Write a recursive function which can find fib(n).
+
+package main
+
+import "fmt"
+
+func fib(n uint) uint
+{
+	if(n == 0){
+	 return 0
+	}
+	else if(n == 1)
+	{
+	  return 1
+	}
+	else{
+	return fib(n-1)+fib(n-2)
+	}	
+}
+
+
+func main()
+{
+	fmt.Println("Enter number for the Fibonacci Sequence")
+	var n int
+	fmt.Scan(&n)
+
+	for i :=0 ;i <= n; i++{
+	fmt.Println(fib(i))
+	}
+}
+
+
+
+
+Q.2. Add new method to shape interface called perimeter which calculates perimeter of shape.Implement method for Circle and Rectangle.
+Ans :
+
+package main
+
+import "fmt"
+import "math"
+
+//Interface definition
+type Shape interface
+{
+	area() float64
+	perimeter() float64
+}
+
+type rectangle struct{
+	width,height float64
+}
+
+type circle struct
+{
+	radius float64
+}
+
+func (r rectangle) area() float64
+{
+	return r.width*r.height
+}
+
+func (r rect) perimeter() float64
+{
+	return 2*r.width+2*r.height
+}
+
+func (c circle) area() float64
+{
+	return math.Pi*c.radius*c.radius
+}
+
+func (c circle) perimeter() float64
+{
+	return 2*math.Pi*c.radius
+}
+
+func shape(g geometry)
+{
+	fmt.Println(g)
+	fmt.Println(g.area())
+    fmt.Println(g.perimeter())
+}
+
+func main()
+{
+	r := rectangle{width: 5,height: 6}
+	c := circle{radius: 6}
+
+	shape(r)
+	shape(c)
+}
+
+
+
+
+
+
+
+
+
+Q.3. Write your own Sleep function using time.After .
+Ans:
+
+func Sleep(x int)
+{
+	<- time.After(time.Second * time.Duration(x))
+}
+
+func main(){
+	fmt.Println("Enter time for which system goes to sleep ")
+	var n int
+	fmt.Scan(&n)
+	Sleep(n)
+}
+
+
+
+
+Q.4. Write unit tests for all the above problems.
+Ans :
+
+
+
+
+
+
+Q.5.What are defer, panic and recover? How do you recover from a run-time panic?
+Ans:
+panic and recover are similar as exceptions and try/catch in some languages. panic causes program stack to begin unwinding and recover stops it. 
+recover stops the panic and returns the value that was passed to call panic. 
+
+To recover from a run time panic we do the following:
+1. we write recover inside a defer function before call of panic.
+2. So that whenever panic occurs after that defer gets called  and recover function inside it returns value that was passed to the call to panic.
+
+Eg.
+
+func main()
+{
+	defer func()
+	{
+	  x := recover()
+	  fmt.Println(x)
+	}()
+	panic("Crash")
+}
+
